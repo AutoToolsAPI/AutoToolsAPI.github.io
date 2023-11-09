@@ -1,0 +1,370 @@
+openapi: 3.0.3
+info:
+  title: AUTO TOOLS 
+  description: |- 
+    This website contains all the employement details 
+  version: 0.0.1
+servers:
+  - url: http://70.63.98.130:18080/api
+    description: Test env
+    variables:
+      username: 
+        default: 70.63.98.130:10080
+tags:
+  - name: Employees
+    description: Everything about your Employees
+  - name: Locations
+    description: Access to Employees regions, countries & locations.
+  - name: Departments
+    description: Access to Employee departments
+paths: 
+  /employee: 
+   get:
+      tags:
+        - Employees
+      summary: Lists all the employee details
+      description: Lists all the employee details in Autotools
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Employee'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Employee' 
+  /employee/{employeeId}:
+    get:
+      tags:
+        - Employees
+      summary: Find individual employee information by ID
+      description: Returns a single Employee info
+      parameters:
+        - name: employeeId
+          in: path
+          description: ID of employee to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Employee'
+  /employee/{employeeId}/profile:
+    get:
+      tags:
+        - Employees
+      summary: Find individual employee profile information by ID
+      description: Returns a single Employee profile info
+      parameters:
+        - name: employeeId
+          in: path
+          description: ID of employee to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpProfile'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmpProfile'
+  /region: 
+    get:
+      tags:
+        - Locations
+      summary: Lists all the region details
+      description: Lists all the region details according to the regionID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Region'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Region' 
+  /api/region/{regionId}:
+    get:
+      tags:
+        - Locations
+      summary:  Find individual region details
+      description: Returns a single region details based on the regionID
+      parameters:
+        - name: regionId
+          in: path
+          description: ID of region to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Region'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Region'
+  /country: 
+    get:
+      tags:
+        - Locations
+      summary: Lists all the Country details
+      description: Lists all the Country details according to the regionID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Country'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Country'
+  /api/country/{countryId}:
+    get:
+      tags:
+        - Locations
+      summary: Find individual country details 
+      description: Returns a single country details based on the countryID
+      parameters:
+        - name: countryId
+          in: path
+          description: ID of country to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Country'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Country'
+  /department: 
+    get:
+      tags:
+        - Departments
+      summary: Lists all the department details
+      description: Lists all the department details according to the locationID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Department'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Department' 
+  /department/{departmentID}: 
+    get:
+      tags:
+        - Departments
+      summary: Lists all the department details
+      description: Lists all the department details according to the locationID
+      parameters:
+        - name: departmentID
+          in: path
+          description: ID of Department to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Department'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/Department'                  
+
+                  
+components:
+  schemas:
+      Employee:
+        required:
+          - employeeId
+          - firstName
+        type: object
+        properties:
+          employeeId:
+            type: integer
+            format: int64
+            example: 10
+          firstName:
+            type: string
+            example: Mahi
+          lastName:
+            type: string
+            example: Mahi
+          email:
+            type: string
+            example: Mahi@bdds.df
+          phone:
+            type: integer
+            example: 345-678-5643
+          hireDate:
+            type: string
+            format: date-time
+          jobId:
+            type: string
+            format: date-time
+          salary:
+            type: string
+            format: date-time
+          commissionPct:
+            type: string
+            format: date-time
+          managerId:
+            type: string
+            format: date-time
+          departmentId:
+            type: string
+            format: date-time
+        xml:
+          name: Employee
+      Job:
+        type: object
+        properties:
+          jobId:
+            type: integer
+            format: int64
+            example: 1
+          jobTitle:
+            type: string
+            example: President
+        xml:
+          name: job
+      Department:
+        type: object
+        properties:
+          departmentId:
+            type: integer
+            format: int64
+            example: 20
+          departmentName:
+            type: string
+            example: Marketing
+          locationId:
+            type: integer 
+            example: 1800
+        xml:
+          name: department
+      EmpProfile:
+        required:
+        - name
+        - photoUrls
+        type: object
+        properties:
+          employeeId:
+            type: integer
+            format: int64
+            example: 100
+          employeeName:
+            type: string
+            example: Steve
+          employeeSalary:
+            type: integer
+            format: int64
+            example: 80000
+          job:
+            $ref: '#/components/schemas/Job'
+          jobHistory:
+            type: array
+            xml:
+              wrapped: true
+            items:
+              type: string
+              xml:
+                name: jobHistory
+          department:
+            type: array
+            xml:
+              wrapped: true
+            items:
+              $ref: '#/components/schemas/Department'
+        xml:
+          name: employee      
+      Region:
+        type: object
+        properties:
+          regionId:
+            type: integer
+            format: int64
+            example: 1
+          regionName:
+            type: string
+            example: Europe
+        xml:
+          name: region
+      Country:
+        type: object
+        properties:
+          CountryId:
+            type: string
+            example: BE
+          countryName:
+            type: string
+            example: Belgium
+          regionId:
+            type: integer
+            format: int64
+            example: 1
+          region:
+            $ref: '#/components/schemas/Region'
+        xml:
+          name: country 
+      
+
+  
