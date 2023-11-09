@@ -236,6 +236,11 @@ components:
         required:
           - employeeId
           - firstName
+          - lastName
+          - email
+          - phone
+          - salary
+          - jobId
         type: object
         properties:
           employeeId:
